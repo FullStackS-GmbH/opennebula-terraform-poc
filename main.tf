@@ -3,8 +3,8 @@ resource "opennebula_virtual_machine" "snack_session" {
   name        = var.vm_name
   cpu         = var.vm_cpu
   vcpu        = var.vm_cpu
-  memory      = var.vm_template
-  template_id = 0
+  memory      = var.vm_ram
+  template_id = var.vm_template.vmtemplate.id
   group       = "terraform"
   permissions = "660"
 
