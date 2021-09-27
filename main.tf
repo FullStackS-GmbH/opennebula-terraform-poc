@@ -1,3 +1,5 @@
+
+
 resource "opennebula_virtual_machine" "snack_session" {
   count       = var.vm_count
   name        = var.vm_name
@@ -5,7 +7,7 @@ resource "opennebula_virtual_machine" "snack_session" {
   vcpu        = var.vm_cpu
   memory      = var.vm_ram
   template_id = data.opennebula_template.vmtemplate.id
-  group       = "terraform"
+  group       = "oneadmin"
   permissions = "660"
 
   graphics {
@@ -24,9 +26,4 @@ resource "opennebula_virtual_machine" "snack_session" {
     network_id      = data.opennebula_virtual_network.vmnetwork.id
   }
 
-  tags = {
-    environment = "snack-session"
-  }
-
-  timeout = 5
 }
