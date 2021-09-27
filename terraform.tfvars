@@ -1,7 +1,4 @@
 
-
-
-
 # VM Name
 vm_name = "snack-session"
 

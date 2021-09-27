@@ -4,6 +4,7 @@ resource "opennebula_virtual_machine" "snack_session" {
   cpu         = var.vm_cpu
   vcpu        = var.vm_cpu
   memory      = var.vm_template
+  template_id = data.opennebula_template.template_id
   group       = "terraform"
   permissions = "660"
 
@@ -24,16 +25,9 @@ resource "opennebula_virtual_machine" "snack_session" {
     boot = "disk0"
   }
 
-  disk {
-    image_id = opennebula_image.osimage.id
-    size     = 10000
-    target   = "vda"
-    driver   = "qcow2"
-  }
-
   nic {
     model           = "virtio"
-    network_id      = var.vnetid
+    network_id      = data.opennebula_virtual_network.vmnetwork.network_id
   }
 
   tags = {
