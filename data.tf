@@ -3,5 +3,5 @@ data "opennebula_virtual_network" "vmnetwork" {
 }
 
 data "opennebula_template" "vmtemplate" {
-    name = var.vm_network
+    name = var.vm_template
 }
