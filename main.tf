@@ -4,7 +4,7 @@ resource "opennebula_virtual_machine" "snack_session" {
   cpu         = var.vm_cpu
   vcpu        = var.vm_cpu
   memory      = var.vm_template
-  template_id = data.opennebula_template.template_id
+  template_id = data.opennebula_template.id
   group       = "terraform"
   permissions = "660"
 
@@ -27,7 +27,7 @@ resource "opennebula_virtual_machine" "snack_session" {
 
   nic {
     model           = "virtio"
-    network_id      = data.opennebula_virtual_network.vmnetwork.network_id
+    network_id      = data.opennebula_virtual_network.vmnetwork.id
   }
 
   tags = {
