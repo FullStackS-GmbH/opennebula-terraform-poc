@@ -8,12 +8,6 @@ resource "opennebula_virtual_machine" "snack_session" {
   group       = "terraform"
   permissions = "660"
 
-  context {
-    NETWORK      = "YES"
-    HOSTNAME     = "$NAME"
-    START_SCRIPT = "apt install nginx"
-  }
-
   graphics {
     type   = "VNC"
     listen = "0.0.0.0"
