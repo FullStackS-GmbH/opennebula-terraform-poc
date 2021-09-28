@@ -1,3 +1,9 @@
+variable "deliverables_path" {
+  type        = string
+  description = "Path to deliverables directory"
+  default     = "./deliverables"
+}
+
 variable "one_endpoint" {
     type = string
     description = "URL of OpenNebula XMLRPC API"
