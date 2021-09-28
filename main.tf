@@ -35,18 +35,18 @@ resource "opennebula_virtual_machine" "snack_session" {
     network_id = data.opennebula_virtual_network.vmnetwork.id
   }
 
-  # provisioner "remote-exec" {
-  #   inline = [
-  #     "uname -a",
-  #   ]
+  provisioner "remote-exec" {
+    inline = [
+      "uname -a",
+    ]
 
-  #   connection {
-  #     type        = "ssh"
-  #     user        = "ubuntu"
-  #     private_key = tls_private_key.key.private_key_pem
-  #     #host        = self.opennebula_virtual_machine.computed_ip
-  #   }
-  # }
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = tls_private_key.key.private_key_pem
+      host        = self.nic.0.computed_ip
+    }
+  }
 
 }
 
