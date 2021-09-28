@@ -13,3 +13,6 @@ vm_template = "Ubuntu 20.04"
 
 # VM Network (Name of OpenNebula Network)
 vm_network = "VLAN600-185-45-88-0-24"
+
+# VM Count
+vm_count = 4

@@ -1,14 +1,27 @@
+resource "tls_private_key" "key" {
+  algorithm   = "ECDSA"
+  ecdsa_curve = "P384"
+}
 
+
+
+# Remote Exec / Startup Script / Clone GIT Repo / Website
 
 resource "opennebula_virtual_machine" "snack_session" {
   count       = var.vm_count
-  name        = var.vm_name
+  name        = format("${var.vm_name}-${var.type}%02d", count.index + 1)
   cpu         = var.vm_cpu
   vcpu        = var.vm_cpu
   memory      = var.vm_ram
   template_id = data.opennebula_template.vmtemplate.id
   group       = "oneadmin"
   permissions = "660"
+
+  context {
+    HOSTNAME = "$NAME"
+    USERNAME = "ubuntu"
+    SSH_PUBLIC_KEY = tls_private_key.key.public_key_openssh
+  }
 
   graphics {
     type   = "VNC"
