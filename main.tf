@@ -52,13 +52,13 @@ resource "opennebula_virtual_machine" "snack_session" {
 
 resource "local_file" "ssh_private_key" {
   filename        = format("${var.deliverables_path}/id_rsa")
-  content         = var.ssh_private_key
+  content         = tls_private_key.key.private_key_pem
   file_permission = "600"
 }
 
 resource "local_file" "ssh_public_key" {
   filename        = format("${var.deliverables_path}/id_rsa.pub")
-  content         = var.ssh_public_key
+  content         = tls_private_key.key.public_key_openssh
   file_permission = "644"
 }
 
