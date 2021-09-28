@@ -44,7 +44,7 @@ resource "opennebula_virtual_machine" "snack_session" {
       type        = "ssh"
       user        = "ubuntu"
       private_key = tls_private_key.key.private_key_pem
-      host        = self.computed_ip
+      host        = self.opennebula_virtual_machine.computed_ip
     }
   }
 
