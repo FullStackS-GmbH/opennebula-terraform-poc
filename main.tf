@@ -3,10 +3,6 @@ resource "tls_private_key" "key" {
   ecdsa_curve = "P384"
 }
 
-
-
-# Remote Exec / Startup Script / Clone GIT Repo / Website
-
 resource "opennebula_virtual_machine" "snack_session" {
   count       = var.vm_count
   name        = format("${var.vm_name}-%02d", count.index + 1)
@@ -18,11 +14,11 @@ resource "opennebula_virtual_machine" "snack_session" {
   permissions = "660"
 
   context = {
-    HOSTNAME ="$NAME"
-    USERNAME ="ubuntu"
-    SSH_PUBLIC_KEY =tls_private_key.key.public_key_openssh
+    HOSTNAME       = "$NAME"
+    USERNAME       = "ubuntu"
+    SSH_PUBLIC_KEY = tls_private_key.key.public_key_openssh
   }
-
+  
   graphics {
     type   = "VNC"
     listen = "0.0.0.0"
@@ -35,8 +31,22 @@ resource "opennebula_virtual_machine" "snack_session" {
   }
 
   nic {
-    model           = "virtio"
-    network_id      = data.opennebula_virtual_network.vmnetwork.id
+    model      = "virtio"
+    network_id = data.opennebula_virtual_network.vmnetwork.id
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "uname -a",
+    ]
+
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = tls_private_key.key.private_key_pem
+      host        = opennebula_virtual_machine.snack_session[count.index].computed_ip
+    }
   }
 
 }
+
