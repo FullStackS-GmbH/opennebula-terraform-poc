@@ -17,7 +17,7 @@ resource "opennebula_virtual_machine" "snack_session" {
   group       = "oneadmin"
   permissions = "660"
 
-  context {
+  context = {
     HOSTNAME ="$NAME"
     USERNAME ="ubuntu"
     SSH_PUBLIC_KEY =tls_private_key.key.public_key_openssh
