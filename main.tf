@@ -9,7 +9,7 @@ resource "tls_private_key" "key" {
 
 resource "opennebula_virtual_machine" "snack_session" {
   count       = var.vm_count
-  name        = format("${var.vm_name}-${var.type}%02d", count.index + 1)
+  name        = format("${var.vm_name}-%02d", count.index + 1)
   cpu         = var.vm_cpu
   vcpu        = var.vm_cpu
   memory      = var.vm_ram
